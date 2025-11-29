@@ -11,4 +11,5 @@ public class CommentRequestDTO {
     private Long discussionId;
     private Long userId;
     private String content;
+    private Long parentCommentId;
 }

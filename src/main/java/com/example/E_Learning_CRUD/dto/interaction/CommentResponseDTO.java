@@ -13,4 +13,5 @@ public class CommentResponseDTO {
     private Long id;
     private String content;
     private LocalDateTime createdAt;
+    private Long parentCommentId;
 }
