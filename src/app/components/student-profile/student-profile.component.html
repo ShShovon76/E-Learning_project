@@ -1,0 +1,481 @@
+<div class="profile-page">
+  <!-- Header -->
+  <div class="profile-header bg-primary text-white py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h1 class="h2 mb-2">My Profile 👤</h1>
+          <p class="mb-0 opacity-75">Manage your account settings and track your learning progress</p>
+        </div>
+        <div class="col-md-4 text-md-end">
+          <div class="d-flex align-items-center justify-content-md-end">
+            <div class="text-end">
+              <strong class="d-block">{{ currentUser?.name }}</strong>
+              <small class="opacity-75">Student</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-4">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-lg-4 mb-4">
+        <div class="card border-0 shadow-sm sticky-top" style="top: 100px;">
+          <div class="card-body text-center p-4">
+            <!-- Avatar -->
+            <div class="avatar-section mb-4">
+              <div class="avatar-container position-relative mx-auto">
+                <img [src]="currentUser?.avatar" alt="Avatar" class="rounded-circle" width="120" height="120">
+                <label class="avatar-upload-btn">
+                  <i class="bi bi-camera-fill"></i>
+                  <input type="file" accept="image/*" (change)="updateAvatar($event)" hidden>
+                </label>
+              </div>
+              <h5 class="mt-3 mb-1">{{ currentUser?.name }}</h5>
+              <p class="text-muted mb-3">Student</p>
+              <div class="badge bg-primary">Active Learner</div>
+            </div>
+
+            <!-- Stats -->
+            <div class="profile-stats row text-center">
+              <div class="col-4">
+                <div class="stat-number fw-bold text-primary">{{ enrolledCourses.length }}</div>
+                <div class="stat-label text-muted small">Courses</div>
+              </div>
+              <div class="col-4">
+                <div class="stat-number fw-bold text-success">{{ getCompletedCourses() }}</div>
+                <div class="stat-label text-muted small">Completed</div>
+              </div>
+              <div class="col-4">
+                <div class="stat-number fw-bold text-info">{{ getTotalLearningTime() }}h</div>
+                <div class="stat-label text-muted small">Hours</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation -->
+          <div class="list-group list-group-flush">
+            <a class="list-group-item list-group-item-action" [class.active]="activeTab === 'profile'"
+              (click)="changeTab('profile')">
+              <i class="bi bi-person me-2"></i>Profile Information
+            </a>
+            <a class="list-group-item list-group-item-action" [class.active]="activeTab === 'security'"
+              (click)="changeTab('security')">
+              <i class="bi bi-shield-lock me-2"></i>Security
+            </a>
+            <a class="list-group-item list-group-item-action" [class.active]="activeTab === 'courses'"
+              (click)="changeTab('courses')">
+              <i class="bi bi-journal-bookmark me-2"></i>My Courses
+            </a>
+            <a class="list-group-item list-group-item-action" [class.active]="activeTab === 'achievements'"
+              (click)="changeTab('achievements')">
+              <i class="bi bi-trophy me-2"></i>Achievements
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-lg-8">
+        <!-- Profile Information Tab -->
+        <div class="tab-content">
+
+          <!-- Profile Tab -->
+          <div class="tab-pane fade" [class.show]="activeTab === 'profile'" [class.active]="activeTab === 'profile'">
+
+            <!-- View Mode - Profile Information Card -->
+            <div class="card border-0 shadow-sm" *ngIf="!isEditing">
+              <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="bi bi-person me-2"></i>Profile Information</h5>
+                <button class="btn btn-outline-primary btn-sm" (click)="toggleEditMode()">
+                  <i class="bi bi-pencil me-1"></i>Edit Profile
+                </button>
+              </div>
+              <div class="card-body">
+                <!-- Profile Details Display -->
+                <div class="row mb-4">
+                  <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                      <div>
+                        <h6 class="text-muted mb-1">Personal Information</h6>
+                        <p class="mb-2"><strong>Name:</strong> {{ currentUser?.name }}</p>
+                        <p class="mb-2"><strong>Email:</strong> {{ currentUser?.email }}</p>
+                        <p class="mb-0" *ngIf="currentUser?.bio">
+                          <strong>Bio:</strong> {{ currentUser?.bio }}
+                        </p>
+                        <p class="mb-0" *ngIf="!currentUser?.bio" class="text-muted">
+                          <em>No bio added yet</em>
+                        </p>
+                      </div>
+                      <div class="text-end">
+                        <span class="badge bg-primary">Student</span>
+                        <p class="small text-muted mt-1">Member since {{ currentUser?.joinDate }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="row" *ngIf="currentUser?.phone || currentUser?.location">
+                  <div class="col-12">
+                    <h6 class="text-muted mb-3">Contact Information</h6>
+                    <div class="row">
+                      <div class="col-md-6" *ngIf="currentUser?.phone">
+                        <p class="mb-2">
+                          <i class="bi bi-telephone text-muted me-2"></i>
+                          <strong>Phone:</strong> {{ currentUser?.phone }}
+                        </p>
+                      </div>
+                      <div class="col-md-6" *ngIf="currentUser?.location">
+                        <p class="mb-2">
+                          <i class="bi bi-geo-alt text-muted me-2"></i>
+                          <strong>Location:</strong> {{ currentUser?.location }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Social Links -->
+                <div class="row" *ngIf="currentUser?.website || currentUser?.twitter || currentUser?.linkedin">
+                  <div class="col-12">
+                    <h6 class="text-muted mb-3">Social Links</h6>
+                    <div class="d-flex flex-wrap gap-3">
+                      <a *ngIf="currentUser?.website" [href]="currentUser?.website" target="_blank"
+                        class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-globe me-1"></i>Website
+                      </a>
+                      <a *ngIf="currentUser?.twitter" [href]="'https://twitter.com/' + currentUser?.twitter"
+                        target="_blank" class="btn btn-outline-info btn-sm">
+                        <i class="bi bi-twitter me-1"></i>Twitter
+                      </a>
+                      <a *ngIf="currentUser?.linkedin" [href]="currentUser?.linkedin" target="_blank"
+                        class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-linkedin me-1"></i>LinkedIn
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Empty State -->
+                <div class="text-center py-4"
+                  *ngIf="!currentUser?.bio && !currentUser?.phone && !currentUser?.location && !currentUser?.website && !currentUser?.twitter && !currentUser?.linkedin">
+                  <i class="bi bi-info-circle display-4 text-muted mb-3"></i>
+                  <h6 class="text-muted">Complete your profile</h6>
+                  <p class="text-muted small mb-0">Add your bio, contact information, and social links to enhance your
+                    profile</p>
+                  <button class="btn btn-primary btn-sm mt-2" (click)="toggleEditMode()">
+                    <i class="bi bi-plus-circle me-1"></i>Add Information
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Edit Mode - Edit Profile Form -->
+            <div class="card border-primary shadow-lg" *ngIf="isEditing">
+              <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="bi bi-pencil-square me-2"></i>Edit Profile</h5>
+                <div>
+                  <button type="button" class="btn btn-light btn-sm me-2" (click)="cancelEdit()">
+                    <i class="bi bi-x-circle me-1"></i>Cancel
+                  </button>
+                  <button type="submit" class="btn btn-warning btn-sm" form="editProfileForm"
+                    [disabled]="editProfileForm.invalid || isLoading">
+                    <i class="bi bi-check-circle me-1"></i>Save Changes
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <form [formGroup]="editProfileForm" (ngSubmit)="onEditSubmit()" id="editProfileForm">
+                  <div class="row g-4">
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">Full Name *</label>
+                      <input type="text" class="form-control" formControlName="name"
+                        [class.is-invalid]="editProfileForm.get('name')?.invalid && editProfileForm.get('name')?.touched">
+                      <div *ngIf="editProfileForm.get('name')?.invalid && editProfileForm.get('name')?.touched"
+                        class="invalid-feedback">
+                        <div *ngIf="editProfileForm.get('name')?.errors?.['required']">Name is required</div>
+                        <div *ngIf="editProfileForm.get('name')?.errors?.['minlength']">Name must be at least 2
+                          characters</div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">Email Address *</label>
+                      <input type="email" class="form-control" formControlName="email"
+                        [class.is-invalid]="editProfileForm.get('email')?.invalid && editProfileForm.get('email')?.touched">
+                      <div *ngIf="editProfileForm.get('email')?.invalid && editProfileForm.get('email')?.touched"
+                        class="invalid-feedback">
+                        <div *ngIf="editProfileForm.get('email')?.errors?.['required']">Email is required</div>
+                        <div *ngIf="editProfileForm.get('email')?.errors?.['email']">Please enter a valid email</div>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <label class="form-label fw-semibold">Bio</label>
+                      <textarea class="form-control" formControlName="bio" rows="4"
+                        placeholder="Tell us about yourself, your interests, and learning goals..."
+                        [class.is-invalid]="editProfileForm.get('bio')?.errors?.['maxlength']"></textarea>
+                      <div class="form-text">
+                        <span [class.text-danger]="editProfileForm.get('bio')?.value?.length > 500">
+                          {{ editProfileForm.get('bio')?.value?.length || 0 }}/500 characters
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">Phone</label>
+                      <input type="tel" class="form-control" formControlName="phone" placeholder="+1 (555) 123-4567"
+                        [class.is-invalid]="editProfileForm.get('phone')?.invalid && editProfileForm.get('phone')?.touched">
+                      <div *ngIf="editProfileForm.get('phone')?.invalid && editProfileForm.get('phone')?.touched"
+                        class="invalid-feedback">
+                        Please enter a valid phone number
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">Location</label>
+                      <input type="text" class="form-control" formControlName="location" placeholder="City, Country">
+                    </div>
+
+                    <div class="col-12">
+                      <label class="form-label fw-semibold">Website</label>
+                      <input type="url" class="form-control" formControlName="website"
+                        placeholder="https://yourwebsite.com"
+                        [class.is-invalid]="editProfileForm.get('website')?.invalid && editProfileForm.get('website')?.touched">
+                      <div *ngIf="editProfileForm.get('website')?.invalid && editProfileForm.get('website')?.touched"
+                        class="invalid-feedback">
+                        Please enter a valid URL (include http:// or https://)
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">Twitter</label>
+                      <div class="input-group">
+                        <span class="input-group-text">@</span>
+                        <input type="text" class="form-control" formControlName="twitter" placeholder="username">
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">LinkedIn</label>
+                      <input type="url" class="form-control" formControlName="linkedin"
+                        placeholder="https://linkedin.com/in/username"
+                        [class.is-invalid]="editProfileForm.get('linkedin')?.invalid && editProfileForm.get('linkedin')?.touched">
+                    </div>
+
+                    <div class="col-12">
+                      <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary" [disabled]="editProfileForm.invalid || isLoading">
+                          <span *ngIf="!isLoading">Update Profile</span>
+                          <span *ngIf="isLoading">Updating...</span>
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary" (click)="cancelEdit()">
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- Security Tab -->
+          <div class="tab-pane fade" [class.show.active]="activeTab === 'security'">
+            <div class="card border-0 shadow-sm">
+              <div class="card-header bg-light">
+                <h5 class="mb-0"><i class="bi bi-shield-lock me-2"></i>Security Settings</h5>
+              </div>
+              <div class="card-body">
+                <form [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()">
+                  <div class="row g-3">
+                    <div class="col-12">
+                      <label class="form-label fw-semibold">Current Password *</label>
+                      <input type="password" class="form-control" formControlName="currentPassword">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">New Password *</label>
+                      <input type="password" class="form-control" formControlName="newPassword">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">Confirm Password *</label>
+                      <input type="password" class="form-control" formControlName="confirmPassword">
+                      <div *ngIf="passwordForm.hasError('passwordMismatch')" class="text-danger small mt-1">
+                        Passwords do not match
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <button type="submit" class="btn btn-primary" [disabled]="passwordForm.invalid || isLoading">
+                        Change Password
+                      </button>
+                    </div>
+                  </div>
+                </form>
+
+                <hr class="my-4">
+
+                <!-- Security Features -->
+                <div class="security-features">
+                  <h6 class="fw-semibold mb-3">Security Features</h6>
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="twoFactor">
+                        <label class="form-check-label" for="twoFactor">
+                          Two-Factor Authentication
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                        <label class="form-check-label" for="emailNotifications">
+                          Email Notifications
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- My Courses Tab -->
+          <div class="tab-pane fade"  [class.show]="activeTab === 'courses'"
+  [class.active]="activeTab === 'courses'">
+            <div class="card border-0 shadow-sm">
+
+              <!-- Header -->
+              <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                  <i class="bi bi-journal-bookmark me-2"></i>My Learning Progress
+                </h5>
+                <span class="badge bg-primary">{{ enrolledCourses.length }} courses</span>
+              </div>
+
+              <!-- Body -->
+              <div class="card-body">
+
+                <!-- Courses Loaded -->
+                <div class="row g-4" *ngIf="enrolledCourses.length > 0; else noCourses">
+
+                  <div class="col-lg-6" *ngFor="let enrolledCourse of enrolledCourses">
+                    <div class="course-card card border-0 shadow-sm h-100">
+                      <div class="row g-0 h-100">
+
+                        <!-- Thumbnail -->
+                        <div class="col-md-4">
+                          <img [src]="enrolledCourse.course.thumbnail" [alt]="enrolledCourse.course.title"
+                            class="img-fluid rounded-start h-100" style="object-fit: cover;" />
+                        </div>
+
+                        <!-- Content -->
+                        <div class="col-md-8">
+                          <div class="card-body d-flex flex-column h-100">
+
+                            <!-- Tags -->
+                            <div class="mb-2">
+                              <span class="badge bg-primary me-2">{{ enrolledCourse.course.level }}</span>
+                              <span class="badge bg-secondary">{{ enrolledCourse.course.category }}</span>
+                            </div>
+
+                            <!-- Title -->
+                            <h6 class="card-title">{{ enrolledCourse.course.title }}</h6>
+
+                            <!-- Description -->
+                            <p class="card-text text-muted small flex-grow-1">
+                              {{ enrolledCourse.course.description | slice:0:100 }}...
+                            </p>
+
+                            <!-- Progress Bar -->
+                            <div class="mb-3">
+                              <div class="d-flex justify-content-between align-items-center mb-1">
+                                <small class="text-muted">Progress</small>
+                                <small class="fw-semibold">{{ enrolledCourse.progress }}%</small>
+                              </div>
+                              <div class="progress" style="height: 6px;">
+                                <div class="progress-bar" [class.bg-success]="enrolledCourse.progress >= 70"
+                                  [class.bg-warning]="enrolledCourse.progress < 70 && enrolledCourse.progress >= 30"
+                                  [class.bg-danger]="enrolledCourse.progress < 30"
+                                  [style.width]="enrolledCourse.progress + '%'"></div>
+                              </div>
+                            </div>
+
+                            <!-- Footer Button -->
+                            <div class="mt-auto d-flex justify-content-between align-items-center">
+                              <small class="text-muted">
+                                <i class="bi bi-clock me-1"></i>
+                                {{ enrolledCourse.course.duration }} hours
+                              </small>
+
+                              <button class="btn btn-primary btn-sm"
+                                (click)="continueLearning(enrolledCourse.course.id)">
+                                <i class="bi bi-play-circle me-1"></i>
+                                {{ enrolledCourse.progress > 0 ? 'Continue' : 'Start' }}
+                              </button>
+                            </div>
+
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- No Courses Template -->
+                <ng-template #noCourses>
+                  <div class="text-center py-5">
+                    <i class="bi bi-journal-plus display-1 text-muted mb-3"></i>
+                    <h5 class="text-muted">No courses enrolled yet</h5>
+                    <p class="text-muted mb-4">Start your learning journey today.</p>
+                    <a routerLink="/courses" class="btn btn-primary">Browse Courses</a>
+                  </div>
+                </ng-template>
+
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Achievements Tab -->
+          <div class="tab-pane fade" [class.show.active]="activeTab === 'achievements'">
+            <div class="card border-0 shadow-sm">
+              <div class="card-header bg-light">
+                <h5 class="mb-0"><i class="bi bi-trophy me-2"></i>Achievements & Badges</h5>
+              </div>
+              <div class="card-body">
+                <div class="row g-4">
+                  <div class="col-md-6 col-lg-4" *ngFor="let achievement of achievements">
+                    <div class="achievement-card card border-0 text-center h-100" [class.earned]="achievement.earned">
+                      <div class="card-body">
+                        <div class="achievement-icon mb-3" [class.earned]="achievement.earned">
+                          <i [class]="achievement.icon"></i>
+                        </div>
+                        <h6 class="achievement-name">{{ achievement.name }}</h6>
+                        <p class="achievement-status small" [class.text-success]="achievement.earned"
+                          [class.text-muted]="!achievement.earned">
+                          {{ achievement.earned ? 'Earned on ' + achievement.date : 'Not earned yet' }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="showSuccessToast" @fadeIn
+  class="custom-toast position-fixed bottom-0 end-0 m-4 p-3 shadow rounded bg-success text-white"
+  style="z-index: 2000; min-width: 260px;">
+  <i class="bi bi-check-circle me-2"></i> Profile updated successfully!
+</div>
+<app-student-footer></app-student-footer>

@@ -1,0 +1,188 @@
+<nav class="navbar navbar-expand-lg navbar-dark custom-navbar shadow">
+  <div class="container">
+    <!-- Brand Logo -->
+    <a class="navbar-brand fw-bold d-flex align-items-center" routerLink="/home">
+      <div class="brand-logo me-2">
+        <i class="bi bi-mortarboard-fill"></i>
+      </div>
+      <span class="brand-text">
+        <span class="brand-main">Edu</span>
+        <span class="brand-sub">Learn</span>
+      </span>
+    </a>
+
+    <!-- Search Bar - Visible on desktop -->
+    <div class="navbar-search d-none d-lg-flex mx-4 flex-grow-1" style="max-width: 400px;">
+      <div class="input-group search-group">
+        <input type="text" class="form-control search-input" placeholder="Search courses, instructors..." 
+               [(ngModel)]="searchQuery" (keyup.enter)="onSearch()">
+        <button class="btn btn-light search-btn" type="button" (click)="onSearch()">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Toggle -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navigation Links -->
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <!-- Mobile Search - Visible only on mobile -->
+      <div class="d-lg-none mb-3">
+        <div class="input-group search-group">
+          <input type="text" class="form-control search-input" placeholder="Search courses..." 
+                 [(ngModel)]="searchQuery" (keyup.enter)="onSearch()">
+          <button class="btn btn-light search-btn" type="button" (click)="onSearch()">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </div>
+
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <!-- Home -->
+        <li class="nav-item">
+          <a class="nav-link nav-item-custom" routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <i class="bi bi-house-door me-2"></i>
+            <span class="nav-text">Home</span>
+          </a>
+        </li>
+
+        <!-- Courses -->
+        <li class="nav-item">
+          <a class="nav-link nav-item-custom" routerLink="/courses" routerLinkActive="active">
+            <i class="bi bi-collection-play me-2"></i>
+            <span class="nav-text">Courses</span>
+          </a>
+        </li>
+
+        <!-- Dashboard Dropdown - Only show when user is logged in -->
+        <li class="nav-item dropdown" *ngIf="currentUser">
+          <a class="nav-link nav-item-custom dropdown-toggle" id="dashboardDropdown" role="button" 
+             data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-speedometer2 me-2"></i>
+            <span class="nav-text">Dashboard</span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-custom" aria-labelledby="dashboardDropdown">
+            <li *ngIf="currentUser.role === 'student'">
+              <a class="dropdown-item" routerLink="/student">
+                <i class="bi bi-person-video2 me-2"></i>
+                My Learning
+              </a>
+            </li>
+            <li *ngIf="currentUser.role === 'instructor'">
+              <a class="dropdown-item" routerLink="/instructor">
+                <i class="bi bi-easel me-2"></i>
+                Instructor Panel
+              </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <!-- Updated Profile Links -->
+            <li *ngIf="currentUser.role === 'student'">
+              <a class="dropdown-item" routerLink="/profile/student">
+                <i class="bi bi-person-circle me-2"></i>
+                My Profile
+              </a>
+            </li>
+            <li *ngIf="currentUser.role === 'instructor'">
+              <a class="dropdown-item" routerLink="/profile/instructor">
+                <i class="bi bi-person-circle me-2"></i>
+                My Profile
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- About -->
+        <li class="nav-item">
+          <a class="nav-link nav-item-custom" routerLink="/about" routerLinkActive="active">
+            <i class="bi bi-info-circle me-2"></i>
+            <span class="nav-text">About</span>
+          </a>
+        </li>
+
+        <!-- Contact -->
+        <li class="nav-item">
+          <a class="nav-link nav-item-custom" routerLink="/contact" routerLinkActive="active">
+            <i class="bi bi-envelope me-2"></i>
+            <span class="nav-text">Contact</span>
+          </a>
+        </li>
+
+        <!-- Authentication Buttons - Show when user is NOT logged in -->
+        <li class="nav-item" *ngIf="!currentUser">
+          <div class="d-flex gap-2 ms-3">
+            <a class="btn btn-outline-light btn-sm" routerLink="/login">
+              <i class="bi bi-box-arrow-in-right me-1"></i>Login
+            </a>
+            <a class="btn btn-light btn-sm" routerLink="/register">
+              <i class="bi bi-person-plus me-1"></i>Register
+            </a>
+          </div>
+        </li>
+
+        <!-- User Menu - Show when user IS logged in -->
+        <li class="nav-item dropdown" *ngIf="currentUser">
+          <a class="nav-link nav-item-custom dropdown-toggle d-flex align-items-center" 
+             id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <!-- User Avatar with Fallback -->
+            <div class="user-avatar-container me-2">
+              <img *ngIf="currentUser.avatar; else avatarFallback" 
+                   [src]="currentUser.avatar" 
+                   [alt]="currentUser.name" 
+                   class="user-avatar"
+                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+              <ng-template #avatarFallback>
+                <div class="avatar-fallback">
+                  {{ getUserInitials() }}
+                </div>
+              </ng-template>
+            </div>
+            <span class="nav-text">{{ currentUser.name }}</span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-custom dropdown-menu-end" aria-labelledby="userDropdown">
+            <!-- Updated Profile Links -->
+            <li *ngIf="currentUser.role === 'student'">
+              <a class="dropdown-item" routerLink="/profile/student">
+                <i class="bi bi-person me-2"></i>
+                Profile
+              </a>
+            </li>
+            <li *ngIf="currentUser.role === 'instructor'">
+              <a class="dropdown-item" routerLink="/profile/instructor">
+                <i class="bi bi-person me-2"></i>
+                Profile
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/settings">
+                <i class="bi bi-gear me-2"></i>
+                Settings
+              </a>
+            </li>
+            <li *ngIf="currentUser.role === 'student'">
+              <a class="dropdown-item" routerLink="/my-courses">
+                <i class="bi bi-collection-play me-2"></i>
+                My Courses
+              </a>
+            </li>
+            <li *ngIf="currentUser.role === 'instructor'">
+              <a class="dropdown-item" routerLink="/instructor">
+                <i class="bi bi-easel me-2"></i>
+                My Teachings
+              </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item text-danger" (click)="logout()" style="cursor: pointer;">
+                <i class="bi bi-box-arrow-right me-2"></i>
+                Logout
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

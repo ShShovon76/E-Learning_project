@@ -1,0 +1,155 @@
+<div class="edit-course-page">
+  <!-- Header -->
+  <div class="bg-dark text-white py-4">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h1 class="h2 mb-2">Edit Course</h1>
+          <p class="mb-0 opacity-75">Update your course information</p>
+        </div>
+        <div class="col-md-4 text-md-end">
+          <button class="btn btn-outline-light" (click)="cancelEdit()">
+            <i class="bi bi-arrow-left me-2"></i>Back to Dashboard
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Form -->
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4">
+            <!-- Loading State -->
+            <div *ngIf="isLoading" class="text-center py-5">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading course...</span>
+              </div>
+              <p class="text-muted mt-3">Loading course details...</p>
+            </div>
+
+            <!-- Edit Form -->
+            <form *ngIf="!isLoading && course" (ngSubmit)="updateCourse()">
+              <!-- Course Title -->
+              <div class="mb-4">
+                <label for="title" class="form-label fw-bold">Course Title</label>
+                <input type="text" class="form-control form-control-lg" id="title"
+                       [(ngModel)]="courseData.title" name="title" required>
+              </div>
+
+              <!-- Description -->
+              <div class="mb-4">
+                <label for="description" class="form-label fw-bold">Course Description</label>
+                <textarea class="form-control" id="description" rows="4"
+                          [(ngModel)]="courseData.description" name="description" required></textarea>
+              </div>
+
+              <!-- Category & Level -->
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <label for="category" class="form-label fw-bold">Category</label>
+                  <select class="form-select" id="category"
+                          [(ngModel)]="courseData.category" name="category" required>
+                    <option value="">Select Category</option>
+                    <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="level" class="form-label fw-bold">Difficulty Level</label>
+                  <select class="form-select" id="level"
+                          [(ngModel)]="courseData.level" name="level" required>
+                    <option *ngFor="let level of levels" [value]="level">{{level | titlecase}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Price & Duration -->
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <label for="price" class="form-label fw-bold">Price ($)</label>
+                  <input type="number" class="form-control" id="price" min="0" step="0.01"
+                         [(ngModel)]="courseData.price" name="price" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="duration" class="form-label fw-bold">Duration (hours)</label>
+                  <input type="number" class="form-control" id="duration" min="1"
+                         [(ngModel)]="courseData.duration" name="duration" required>
+                </div>
+              </div>
+
+              <!-- Thumbnail URL -->
+              <div class="mb-4">
+                <label for="thumbnail" class="form-label fw-bold">Thumbnail URL</label>
+                <input type="url" class="form-control" id="thumbnail"
+                       [(ngModel)]="courseData.thumbnail" name="thumbnail" required>
+                <div class="form-text">Enter a valid image URL for your course thumbnail</div>
+              </div>
+
+              <!-- Featured Course -->
+              <div class="mb-4">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="isFeatured"
+                         [(ngModel)]="courseData.isFeatured" name="isFeatured">
+                  <label class="form-check-label fw-bold" for="isFeatured">
+                    Feature this course
+                  </label>
+                </div>
+                <div class="form-text">Featured courses are highlighted on the homepage</div>
+              </div>
+
+              <!-- Requirements -->
+              <div class="mb-4">
+                <label class="form-label fw-bold">Requirements</label>
+                <div *ngFor="let requirement of courseData.requirements; let i = index" class="input-group mb-2">
+                  <input type="text" class="form-control" 
+                         [(ngModel)]="courseData.requirements[i]" 
+                         [name]="'requirement' + i"
+                         placeholder="Enter a requirement">
+                  <button type="button" class="btn btn-outline-danger" 
+                          (click)="removeRequirement(i)" [disabled]="courseData.requirements.length === 1">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="addRequirement()">
+                  <i class="bi bi-plus me-1"></i>Add Requirement
+                </button>
+              </div>
+
+              <!-- Learning Objectives -->
+              <div class="mb-4">
+                <label class="form-label fw-bold">Learning Objectives</label>
+                <div *ngFor="let objective of courseData.learningObjectives; let i = index" class="input-group mb-2">
+                  <input type="text" class="form-control" 
+                         [(ngModel)]="courseData.learningObjectives[i]" 
+                         [name]="'objective' + i"
+                         placeholder="Enter a learning objective">
+                  <button type="button" class="btn btn-outline-danger" 
+                          (click)="removeLearningObjective(i)" [disabled]="courseData.learningObjectives.length === 1">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="addLearningObjective()">
+                  <i class="bi bi-plus me-1"></i>Add Learning Objective
+                </button>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="d-flex gap-3 pt-4">
+                <button type="submit" class="btn btn-primary px-4" [disabled]="isUpdating">
+                  <span *ngIf="isUpdating" class="spinner-border spinner-border-sm me-2"></span>
+                  <i class="bi bi-check-circle me-2" *ngIf="!isUpdating"></i>
+                  {{ isUpdating ? 'Updating...' : 'Update Course' }}
+                </button>
+                <button type="button" class="btn btn-outline-secondary" (click)="cancelEdit()">
+                  <i class="bi bi-x-circle me-2"></i>Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

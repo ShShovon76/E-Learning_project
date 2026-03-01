@@ -1,0 +1,100 @@
+<footer class="student-footer bg-primary text-white pt-5">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Student Focus -->
+      <div class="col-lg-5 mb-4">
+        <div class="d-flex align-items-center mb-3">
+          <div class="student-icon me-3 text-primary">
+            <i class="bi bi-person-check-fill fs-2"></i>
+          </div>
+          <div>
+            <h4 class="fw-bold mb-0 text-primary">Student Success</h4>
+            <small class="opacity-75">Your Learning Journey Matters</small>
+          </div>
+        </div>
+        <p class="opacity-75 mb-4">
+          Continue your learning adventure with personalized recommendations, 
+          progress tracking, and dedicated student support.
+        </p>
+        <div class="student-stats row text-center">
+          <div class="col-4">
+            <div class="stat-number fw-bold">10K+</div>
+            <div class="stat-label opacity-75 small text-primary">Active Students</div>
+          </div>
+          <div class="col-4">
+            <div class="stat-number fw-bold">95%</div>
+            <div class="stat-label opacity-75 small text-primary">Completion Rate</div>
+          </div>
+          <div class="col-4">
+            <div class="stat-number fw-bold">24/7</div>
+            <div class="stat-label opacity-75 small text-primary">Support</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Learning Resources -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <h6 class="fw-semibold mb-3 text-primary fs-5">Learning Resources</h6>
+        <ul class="list-unstyled footer-links">
+          <li class="mb-2"><a routerLink="/student" class="text-white-50 text-decoration-none hover-light">My Dashboard</a></li>
+          <li class="mb-2"><a routerLink="/courses" class="text-white-50 text-decoration-none hover-light">Browse Courses</a></li>
+          <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-light">Learning Paths</a></li>
+          <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-light">Study Groups</a></li>
+          <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-light">Career Guidance</a></li>
+        </ul>
+      </div>
+
+      <!-- Student Support -->
+      <div class="col-lg-2 col-md-6 mb-4">
+        <h6 class="fw-semibold mb-3 text-primary fs-5">Student Support</h6>
+        <ul class="list-unstyled footer-links">
+          <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-light">Help Center</a></li>
+          <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-light">Technical Support</a></li>
+          <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-light">Community Forum</a></li>
+          <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-light">Feedback</a></li>
+        </ul>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="col-lg-2 mb-4">
+        <h6 class="fw-semibold mb-3 text-primary fs-5">Quick Actions</h6>
+        <div class="d-grid gap-2">
+          <a routerLink="/courses" class="btn btn-light btn-sm">
+            <i class="bi bi-search me-1"></i>Find Courses
+          </a>
+          <a routerLink="/student" class="btn btn-outline-light btn-sm">
+            <i class="bi bi-speedometer2 me-1"></i>My Progress
+          </a>
+          <a routerLink="/profile/student" class="btn btn-outline-light btn-sm">
+            <i class="bi bi-person me-1"></i>My Profile
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <hr class="my-4 border-light opacity-25">
+
+    <!-- Bottom Bar -->
+    <div class="row align-items-center py-3">
+      <div class="col-md-8 text-center text-md-start">
+        <p class="mb-0 opacity-75 small text-warning">
+          <i class="bi bi-lightbulb me-1"></i>
+          Keep learning! You've completed <strong>{{completedCourses}}</strong> courses this month.
+        </p>
+      </div>
+      <div class="col-md-4 text-center text-md-end">
+        <div class="d-flex justify-content-center justify-content-md-end gap-3">
+          <a href="#" class="text-white-50 hover-light">
+            <i class="bi bi-question-circle"></i>
+          </a>
+          <a href="#" class="text-white-50 hover-light">
+            <i class="bi bi-chat-dots"></i>
+          </a>
+          <a href="#" class="text-white-50 hover-light">
+            <i class="bi bi-share"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

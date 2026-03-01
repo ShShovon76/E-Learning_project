@@ -1,0 +1,416 @@
+<div class="course-creation">
+  <!-- Header -->
+  <div class="creation-header bg-primary text-white py-4">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h1 class="h2 mb-2">Create New Course 🎓</h1>
+          <p class="mb-0 opacity-75">Share your knowledge with the world</p>
+        </div>
+        <div class="col-md-4 text-md-end">
+          <button class="btn btn-light me-2" (click)="togglePreview()" [disabled]="courseForm.invalid">
+            <i class="bi" [class]="previewMode ? 'bi-pencil' : 'bi-eye'"></i>
+            {{ previewMode ? 'Edit Mode' : 'Preview' }}
+          </button>
+          <button class="btn btn-outline-light" routerLink="/instructor">
+            <i class="bi bi-arrow-left me-1"></i>Back to Dashboard
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress Steps -->
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body">
+            <!-- Progress Bar -->
+            <div class="progress mb-4" style="height: 8px;">
+              <div class="progress-bar bg-primary" role="progressbar" 
+                   [style.width]="getStepProgress() + '%'"></div>
+            </div>
+
+            <!-- Step Indicators -->
+            <div class="row text-center">
+              <div class="col-md-4">
+                <button class="btn btn-step" [class.active]="currentStep === 1" (click)="goToStep(1)">
+                  <span class="step-number">1</span>
+                  <span class="step-label">Basic Info</span>
+                </button>
+              </div>
+              <div class="col-md-4">
+                <button class="btn btn-step" [class.active]="currentStep === 2" (click)="goToStep(2)">
+                  <span class="step-number">2</span>
+                  <span class="step-label">Course Content</span>
+                </button>
+              </div>
+              <div class="col-md-4">
+                <button class="btn btn-step" [class.active]="currentStep === 3" (click)="goToStep(3)">
+                  <span class="step-number">3</span>
+                  <span class="step-label">Finalize</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Preview Mode -->
+    <div class="row mt-4" *ngIf="previewMode">
+      <div class="col-12">
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-warning text-dark">
+            <h5 class="mb-0"><i class="bi bi-eye me-2"></i>Course Preview</h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4">
+                <img [src]="courseForm.get('thumbnail')?.value || getThumbnailPlaceholder()" 
+                     class="img-fluid rounded mb-3" alt="Course thumbnail">
+              </div>
+              <div class="col-md-8">
+                <h3>{{ courseForm.get('title')?.value || 'Course Title' }}</h3>
+                <p class="text-muted">{{ courseForm.get('description')?.value || 'Course description will appear here...' }}</p>
+                
+                <div class="row mb-3">
+                  <div class="col-6">
+                    <strong>Category:</strong> {{ courseForm.get('category')?.value || 'Not set' }}
+                  </div>
+                  <div class="col-6">
+                    <strong>Level:</strong> {{ courseForm.get('level')?.value || 'Not set' }}
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-6">
+                    <strong>Duration:</strong> {{ courseForm.get('duration')?.value || 0 }} hours
+                  </div>
+                  <div class="col-6">
+                    <strong>Price:</strong> ${{ courseForm.get('price')?.value || 0 }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Content -->
+    <form [formGroup]="courseForm" (ngSubmit)="onSubmit()" *ngIf="!previewMode">
+      
+      <!-- Step 1: Basic Information -->
+      <div class="row mt-4" *ngIf="currentStep === 1">
+        <div class="col-12">
+          <div class="card border-0 shadow-sm">
+            <div class="card-header bg-light">
+              <h5 class="mb-0"><i class="bi bi-info-circle me-2"></i>Basic Information</h5>
+            </div>
+            <div class="card-body">
+              <div class="row g-4">
+                <!-- Course Title -->
+                <div class="col-12">
+                  <label for="title" class="form-label fw-semibold">Course Title *</label>
+                  <input type="text" class="form-control form-control-lg" id="title" formControlName="title"
+                         placeholder="e.g., Complete Web Development Bootcamp">
+                  <div class="form-text">Make it catchy and descriptive. This is the first thing students will see.</div>
+                  <div *ngIf="courseForm.get('title')?.invalid && courseForm.get('title')?.touched" 
+                       class="text-danger small mt-1">
+                    Course title is required and must be at least 5 characters long.
+                  </div>
+                </div>
+
+                <!-- Description -->
+                <div class="col-12">
+                  <label for="description" class="form-label fw-semibold">Course Description *</label>
+                  <textarea class="form-control" id="description" formControlName="description" rows="5"
+                            placeholder="Describe what students will learn in this course..."></textarea>
+                  <div class="form-text">
+                    Write a detailed description. Minimum 50 characters. 
+                    <span class="fw-semibold" [class.text-danger]="courseForm.get('description')?.value?.length < 50">
+                      {{ courseForm.get('description')?.value?.length || 0 }}/50
+                    </span>
+                  </div>
+                  <div *ngIf="courseForm.get('description')?.invalid && courseForm.get('description')?.touched" 
+                       class="text-danger small mt-1">
+                    Description is required and must be at least 50 characters long.
+                  </div>
+                </div>
+
+                <!-- Category & Level -->
+                <div class="col-md-6">
+                  <label for="category" class="form-label fw-semibold">Category *</label>
+                  <select class="form-select" id="category" formControlName="category">
+                    <option value="">Select a category</option>
+                    <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+                  </select>
+                  <div *ngIf="courseForm.get('category')?.invalid && courseForm.get('category')?.touched" 
+                       class="text-danger small mt-1">
+                    Please select a category.
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="level" class="form-label fw-semibold">Difficulty Level *</label>
+                  <select class="form-select" id="level" formControlName="level">
+                    <option *ngFor="let level of levels" [value]="level.value">
+                      {{ level.label }} - {{ level.description }}
+                    </option>
+                  </select>
+                </div>
+
+                <!-- Price & Duration -->
+                <div class="col-md-6">
+                  <label for="price" class="form-label fw-semibold">Price ($) *</label>
+                  <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="number" class="form-control" id="price" formControlName="price" min="0" step="0.01">
+                  </div>
+                  <div class="form-text">Set 0 for free courses</div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="duration" class="form-label fw-semibold">Total Duration (hours) *</label>
+                  <input type="number" class="form-control" id="duration" formControlName="duration" min="1">
+                </div>
+
+                <!-- Thumbnail -->
+                <div class="col-12">
+                  <label for="thumbnail" class="form-label fw-semibold">Course Thumbnail URL *</label>
+                  <input type="url" class="form-control" id="thumbnail" formControlName="thumbnail"
+                         placeholder="https://example.com/thumbnail.jpg">
+                  <div class="form-text">
+                    Enter a high-quality image URL. Recommended size: 400x250px.
+                    <a href="https://unsplash.com" target="_blank" class="ms-1">Find free images on Unsplash</a>
+                  </div>
+                  <div *ngIf="courseForm.get('thumbnail')?.invalid && courseForm.get('thumbnail')?.touched" 
+                       class="text-danger small mt-1">
+                    Please provide a valid thumbnail URL.
+                  </div>
+                  
+                  <!-- Thumbnail Preview -->
+                  <div class="mt-3" *ngIf="courseForm.get('thumbnail')?.value">
+                    <label class="form-label">Thumbnail Preview:</label>
+                    <div class="thumbnail-preview">
+                      <img [src]="courseForm.get('thumbnail')?.value" class="img-thumbnail" 
+                           style="max-height: 150px;" onerror="this.style.display='none'">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Course Content -->
+      <div class="row mt-4" *ngIf="currentStep === 2">
+        <div class="col-12">
+          <div class="card border-0 shadow-sm">
+            <div class="card-header bg-light d-flex justify-content-between align-items-center">
+              <h5 class="mb-0"><i class="bi bi-play-circle me-2"></i>Course Content</h5>
+              <button type="button" class="btn btn-primary btn-sm" (click)="addLesson()">
+                <i class="bi bi-plus-circle me-1"></i>Add Lesson
+              </button>
+            </div>
+            <div class="card-body">
+              
+              <!-- Lessons List -->
+              <div class="lessons-container" formArrayName="lessons">
+                <div class="lesson-item card mb-3" *ngFor="let lesson of lessons.controls; let i = index" [formGroupName]="i">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                      <h6 class="mb-0">Lesson {{ i + 1 }}</h6>
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-outline-secondary btn-sm" 
+                                (click)="moveLessonUp(i)" [disabled]="i === 0">
+                          <i class="bi bi-arrow-up"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" 
+                                (click)="moveLessonDown(i)" [disabled]="i === lessons.length - 1">
+                          <i class="bi bi-arrow-down"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeLesson(i)">
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <label class="form-label">Lesson Title *</label>
+                        <input type="text" class="form-control" formControlName="title" 
+                               placeholder="e.g., Introduction to HTML">
+                      </div>
+                      <div class="col-md-3">
+                        <label class="form-label">Type *</label>
+                        <select class="form-select" formControlName="type">
+                          <option *ngFor="let type of lessonTypes" [value]="type.value">
+                            {{ type.label }}
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col-md-3">
+                        <label class="form-label">Duration (min) *</label>
+                        <input type="number" class="form-control" formControlName="duration" min="1">
+                      </div>
+                      <div class="col-12">
+                        <label class="form-label">Description *</label>
+                        <textarea class="form-control" formControlName="description" rows="2"
+                                  placeholder="What will students learn in this lesson?"></textarea>
+                      </div>
+                      <div class="col-12" *ngIf="lesson.get('type')?.value === 'video'">
+                        <label class="form-label">Video URL</label>
+                        <input type="url" class="form-control" formControlName="videoUrl" 
+                               placeholder="https://example.com/video.mp4">
+                      </div>
+                      <div class="col-12" *ngIf="lesson.get('type')?.value !== 'video'">
+                        <label class="form-label">Content</label>
+                        <textarea class="form-control" formControlName="content" rows="4"
+                                  placeholder="Add your lesson content here..."></textarea>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" formControlName="isFree">
+                          <label class="form-check-label">
+                            This lesson is free to preview
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Empty State -->
+                <div class="text-center py-5" *ngIf="lessons.length === 0">
+                  <i class="bi bi-play-circle display-1 text-muted mb-3"></i>
+                  <h5 class="text-muted">No lessons added yet</h5>
+                  <p class="text-muted">Start building your course by adding lessons</p>
+                  <button type="button" class="btn btn-primary" (click)="addLesson()">
+                    <i class="bi bi-plus-circle me-2"></i>Add Your First Lesson
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Finalize -->
+      <div class="row mt-4" *ngIf="currentStep === 3">
+        <div class="col-12">
+          <div class="card border-0 shadow-sm">
+            <div class="card-header bg-light">
+              <h5 class="mb-0"><i class="bi bi-check-circle me-2"></i>Finalize Course</h5>
+            </div>
+            <div class="card-body">
+              
+              <!-- Requirements -->
+              <div class="mb-4">
+                <label class="form-label fw-semibold">Requirements</label>
+                <div formArrayName="requirements">
+                  <div class="mb-2" *ngFor="let requirement of requirements.controls; let i = index">
+                    <div class="input-group">
+                      <input type="text" class="form-control" [formControlName]="i" 
+                             placeholder="e.g., Basic computer knowledge">
+                      <button type="button" class="btn btn-outline-danger" (click)="removeRequirement(i)" 
+                              [disabled]="requirements.length === 1">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="addRequirement()">
+                  <i class="bi bi-plus me-1"></i>Add Requirement
+                </button>
+              </div>
+
+              <!-- Learning Objectives -->
+              <div class="mb-4">
+                <label class="form-label fw-semibold">What students will learn</label>
+                <div formArrayName="learningObjectives">
+                  <div class="mb-2" *ngFor="let objective of learningObjectives.controls; let i = index">
+                    <div class="input-group">
+                      <input type="text" class="form-control" [formControlName]="i" 
+                             placeholder="e.g., Build responsive websites">
+                      <button type="button" class="btn btn-outline-danger" (click)="removeLearningObjective(i)"
+                              [disabled]="learningObjectives.length === 1">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="addLearningObjective()">
+                  <i class="bi bi-plus me-1"></i>Add Learning Objective
+                </button>
+              </div>
+
+              <!-- Course Settings -->
+              <div class="mb-4">
+                <label class="form-label fw-semibold">Course Settings</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" formControlName="isFeatured">
+                  <label class="form-check-label">
+                    Feature this course on the homepage
+                  </label>
+                </div>
+              </div>
+
+              <!-- Course Summary -->
+              <div class="card bg-light">
+                <div class="card-body">
+                  <h6 class="card-title">Course Summary</h6>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <strong>Total Lessons:</strong> {{ lessons.length }}
+                    </div>
+                    <div class="col-md-6">
+                      <strong>Total Duration:</strong> {{ courseForm.get('duration')?.value || 0 }} hours
+                    </div>
+                    <div class="col-md-6">
+                      <strong>Price:</strong> ${{ courseForm.get('price')?.value || 0 }}
+                    </div>
+                    <div class="col-md-6">
+                      <strong>Level:</strong> {{ courseForm.get('level')?.value || 'Not set' }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="row mt-4">
+        <div class="col-12">
+          <div class="d-flex justify-content-between">
+            <button type="button" class="btn btn-outline-primary" (click)="prevStep()" 
+                    [disabled]="currentStep === 1">
+              <i class="bi bi-arrow-left me-1"></i>Previous
+            </button>
+            
+            <button type="button" class="btn btn-primary" (click)="nextStep()" 
+                    *ngIf="currentStep < totalSteps" [disabled]="!isStepValid(currentStep)">
+              Next <i class="bi bi-arrow-right ms-1"></i>
+            </button>
+            
+            <button type="submit" class="btn btn-success" 
+                    *ngIf="currentStep === totalSteps" [disabled]="courseForm.invalid || isLoading">
+              <span *ngIf="!isLoading">
+                <i class="bi bi-check-circle me-1"></i>Create Course
+              </span>
+              <span *ngIf="isLoading">
+                <i class="bi bi-arrow-repeat spinner me-1"></i>Creating...
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<app-instructor-footer></app-instructor-footer>

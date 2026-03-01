@@ -1,0 +1,77 @@
+.common-footer {
+  background: linear-gradient(135deg, #082f68 0%, #071a33 100%);
+  
+
+  .footer-brand {
+    .footer-logo {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 10px;
+      backdrop-filter: blur(10px);
+    }
+  }
+
+  .social-links {
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: #fff;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: var(--bs-primary);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      }
+    }
+  }
+
+  .footer-links {
+    li {
+      a {
+        transition: all 0.3s ease;
+        
+        &.hover-primary:hover {
+          color: var(--bs-primary) !important;
+          padding-left: 5px;
+        }
+      }
+    }
+  }
+
+  .newsletter-form {
+    .form-control {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+      }
+      
+      &:focus {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: var(--bs-primary);
+        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+      }
+    }
+  }
+
+  .payment-methods {
+    i {
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+      color: #678cb6;
+      
+      &:hover {
+        color: var(--bs-primary) !important;
+      }
+    }
+  }
+}

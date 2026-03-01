@@ -1,0 +1,88 @@
+.student-dashboard {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    position: relative;
+    z-index: 1;
+
+    .dashboard-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .stat-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        position: relative;
+         z-index: 1;
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    .course-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .card-img-top {
+            height: 140px;
+            object-fit: cover;
+        }
+    }
+
+    .section-title {
+        position: relative;
+        padding-bottom: 0.5rem;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+    }
+
+    .activity-icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .container {
+    overflow: visible !important;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+    .student-dashboard {
+        .stat-card .stat-number {
+            font-size: 1.5rem;
+        }
+
+        .course-card .row {
+            flex-direction: column;
+        }
+    }
+}

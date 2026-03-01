@@ -1,0 +1,98 @@
+/* You can add global styles to this file, and also import other style files */
+/* Global Theme Variables */
+:root {
+  --green-primary: #00b09b;
+  --green-secondary: #96c93d;
+  --green-dark: #008975;
+  --green-light: #e8f8f5;
+  
+  /* Keep your existing blue variables for other components */
+  --primary-dark: #1e3c72;
+  --primary-main: #2a5298;
+  --secondary-dark: #00695c;
+  --secondary-main: #00897b;
+  --accent-orange: #d84315;
+  --accent-amber: #ff8f00;
+  --accent-sky: #4fc3f7;
+  --neutral-light: #f8f9fa;
+  --neutral-border: #e9ecef;
+  --neutral-muted: #6c757d;
+  --neutral-dark: #495057;
+}
+
+/* Green gradient backgrounds */
+.bg-theme-primary {
+  background: linear-gradient(135deg, var(--green-primary), var(--green-secondary)) !important;
+}
+
+.bg-theme-secondary {
+  background: linear-gradient(135deg, var(--green-dark), var(--green-primary)) !important;
+}
+
+/* Green text colors */
+.text-theme-primary {
+  color: var(--green-primary) !important;
+}
+
+.text-theme-secondary {
+  color: var(--green-dark) !important;
+}
+
+/* Green buttons */
+.btn-theme-primary {
+  background: linear-gradient(135deg, var(--green-primary), var(--green-secondary));
+  border: none;
+  color: white;
+  
+  &:hover {
+    background: linear-gradient(135deg, var(--green-dark), var(--green-primary));
+    color: white;
+  }
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, var(--secondary-dark), var(--secondary-main));
+  border: none;
+  font-weight: 500;
+  
+  &:hover {
+    background: linear-gradient(135deg, var(--secondary-main), var(--secondary-dark));
+    transform: translateY(-2px);
+  }
+}
+
+.btn-accent {
+  background: linear-gradient(135deg, var(--accent-orange), var(--accent-amber));
+  border: none;
+  color: white;
+  font-weight: 500;
+  
+  &:hover {
+    background: linear-gradient(135deg, var(--accent-amber), var(--accent-orange));
+    transform: translateY(-2px);
+    color: white;
+  }
+}
+
+/* Card Styles */
+.themed-card {
+  border: 1px solid var(--neutral-border);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(30, 60, 114, 0.1);
+    border-color: var(--primary-dark);
+  }
+}
+
+/* Text Colors */
+.text-theme-primary { color: var(--primary-dark) !important; }
+.text-theme-secondary { color: var(--secondary-dark) !important; }
+.text-theme-accent { color: var(--accent-amber) !important; }
+
+/* Background Colors */
+.bg-theme-primary { background: linear-gradient(135deg, var(--primary-dark), var(--primary-main)) !important; }
+.bg-theme-secondary { background: linear-gradient(135deg, var(--secondary-dark), var(--secondary-main)) !important; }
+.bg-theme-accent { background: linear-gradient(135deg, var(--accent-orange), var(--accent-amber)) !important; }

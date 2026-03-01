@@ -1,0 +1,155 @@
+.courses-page {
+  .page-header {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-main)) !important;
+  }
+
+  .filter-sidebar {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--neutral-border);
+    position: sticky;
+    top: 100px;
+  }
+
+  .filter-title {
+    color: var(--primary-dark);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .filter-section {
+    border-bottom: 1px solid var(--neutral-border);
+    padding-bottom: 1rem;
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  }
+
+  .filter-options {
+    max-height: 200px;
+    overflow-y: auto;
+    
+    .form-check-label {
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+  }
+
+  .course-card {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid var(--neutral-border);
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(30, 60, 114, 0.15);
+      border-color: var(--primary-dark);
+    }
+  }
+
+  .course-image {
+    img {
+      height: 180px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover img {
+      transform: scale(1.05);
+    }
+  }
+
+  .course-badges {
+    .badge {
+      font-size: 0.7rem;
+      padding: 0.25rem 0.5rem;
+    }
+  }
+
+  .instructor-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary-dark);
+  }
+
+  .toolbar {
+    background: white;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--neutral-border);
+  }
+
+  // Level badges
+  .badge.bg-beginner {
+    background: var(--secondary-main) !important;
+    color: white;
+  }
+
+  .badge.bg-intermediate {
+    background: var(--accent-amber) !important;
+    color: white;
+  }
+
+  .badge.bg-advanced {
+    background: var(--accent-orange) !important;
+    color: white;
+  }
+
+  // Form elements
+  .form-select:focus,
+  .form-control:focus {
+    border-color: var(--primary-dark);
+    box-shadow: 0 0 0 0.2rem rgba(30, 60, 114, 0.25);
+  }
+
+  .form-check-input:checked {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+  }
+
+  @media (max-width: 768px) {
+    .filter-sidebar {
+      position: static;
+      margin-bottom: 2rem;
+    }
+
+    .toolbar {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .header-stats {
+      text-align: center !important;
+      margin-top: 1rem;
+    }
+  }
+}
+
+// Scrollbar styling for filter options
+.filter-options::-webkit-scrollbar {
+  width: 4px;
+}
+
+.filter-options::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.filter-options::-webkit-scrollbar-thumb {
+  background: var(--primary-dark);
+  border-radius: 10px;
+}
+
+.filter-options::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-main);
+}

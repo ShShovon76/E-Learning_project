@@ -1,0 +1,463 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Sarah Johnson",
+      "email": "sarah@example.com",
+      "role": "instructor",
+      "avatar": "https://photokit.com/images/tools/webp/bg4.webp",
+      "joinDate": "2023-08-20",
+      "bio": "Senior Web Developer with 8+ years of experience",
+      "expertise": "Web Development, Angular, JavaScript",
+      "experience": "8+ years",
+      "hourlyRate": 75,
+      "phone": "+1-555-0123",
+      "location": "San Francisco, CA",
+      "website": "https://sarahjohnson.dev",
+      "twitter": "sarahjo",
+      "linkedin": "sarah-johnson",
+      "isVerified": true
+    },
+    {
+      "id": "2",
+      "name": "Mike Chen",
+      "email": "mike@example.com",
+      "role": "instructor",
+      "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+      "joinDate": "2023-05-15",
+      "bio": "Data Scientist and AI Specialist",
+      "expertise": "Data Science, Python, Machine Learning",
+      "experience": "6+ years",
+      "hourlyRate": 80,
+      "phone": "+1-555-0124",
+      "location": "New York, NY",
+      "website": "https://mikechen.ai",
+      "twitter": "mikechen",
+      "linkedin": "mike-chen",
+      "isVerified": true
+    },
+    {
+      "id": "3",
+      "name": "Emily Davis",
+      "email": "emily@example.com",
+      "role": "instructor",
+      "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+      "joinDate": "2023-11-10",
+      "bio": "UI/UX Designer and Frontend Developer",
+      "expertise": "UI/UX Design, Figma, Frontend Development",
+      "experience": "5+ years",
+      "hourlyRate": 70,
+      "phone": "+1-555-0125",
+      "location": "Los Angeles, CA",
+      "website": "https://emilydavis.design",
+      "twitter": "emilydavis",
+      "linkedin": "emily-davis",
+      "isVerified": true
+    },
+    {
+      "id": "4",
+      "name": "John Smith",
+      "email": "john@example.com",
+      "role": "student",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+      "joinDate": "2024-01-15",
+      "bio": "Passionate learner exploring new technologies",
+      "phone": "+1-555-0126",
+      "location": "Chicago, IL",
+      "website": "https://johnsmith.blog",
+      "twitter": "johnsmith",
+      "linkedin": "john-smith",
+      "isVerified": true
+    },
+    {
+      "id": "428",
+      "name": "shakil hossain Shovon",
+      "email": "shshovonnct@gmail.com",
+      "password": "123456",
+      "avatar": "https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=150&h=150&fit=crop&crop=face",
+      "role": "instructor",
+      "joinDate": "2025-11-09",
+      "bio": "Full-stack developer and educator",
+      "expertise": "Web Development, Angular, Node.js",
+      "experience": "3+ years",
+      "hourlyRate": 45,
+      "phone": "01677468117",
+      "location": "",
+      "website": "",
+      "twitter": "",
+      "linkedin": "",
+      "isVerified": true,
+      "github": ""
+    },
+    {
+      "id": "505",
+      "name": "Shovon",
+      "email": "abc@gmail.com",
+      "password": "123456",
+      "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&h=150&fit=crop&crop=face",
+      "role": "admin",
+      "joinDate": "2025-11-10",
+      "bio": "System Administrator",
+      "phone": "",
+      "location": "",
+      "website": "",
+      "twitter": "",
+      "linkedin": "",
+      "isVerified": true
+    },
+    {
+      "id": "619",
+      "name": "shakil hossain Shovon",
+      "email": "shovon@gmail.com",
+      "password": "123456",
+      "role": "student",
+      "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face",
+      "joinDate": "2025-11-10",
+      "bio": "Aspiring web developer learning new technologies and ss dd ff gg",
+      "phone": "+8801677468117",
+      "location": "",
+      "website": "",
+      "twitter": "",
+      "linkedin": "",
+      "isVerified": true
+    },
+    {
+      "id": "161",
+      "name": "sh shovon",
+      "email": "sh@gmail.com",
+      "password": "123456",
+      "role": "student",
+      "avatar": "https://images.unsplash.com/photo-1513258496099-48168024aec0?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "joinDate": "2025-11-11",
+      "bio": "dsssssssggsdgdddddddddddddd fff",
+      "phone": "+8801677468117",
+      "location": "dhaka",
+      "website": "",
+      "twitter": "",
+      "linkedin": "",
+      "github": "",
+      "expertise": "",
+      "experience": "",
+      "hourlyRate": 0,
+      "isVerified": false
+    }
+  ],
+  "courses": [
+    {
+      "id": "1",
+      "title": "Angular Masterclass",
+      "description": "Complete Angular course from beginner to advanced with real-world projects and best practices. Learn components, services, routing, and state management.",
+      "instructorId": 1,
+      "price": 49.99,
+      "rating": 4.8,
+      "students": 1250,
+      "thumbnail": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=250&fit=crop",
+      "category": "Web Development",
+      "level": "intermediate",
+      "duration": 28,
+      "createdDate": "2024-01-10",
+      "isFeatured": true
+    },
+    {
+      "id": "2",
+      "title": "JavaScript Fundamentals",
+      "description": "Learn JavaScript from scratch with hands-on exercises and projects. Master ES6+ features and modern development practices.",
+      "instructorId": 1,
+      "price": 29.99,
+      "rating": 4.6,
+      "students": 890,
+      "thumbnail": "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=400&h=250&fit=crop",
+      "category": "Programming",
+      "level": "beginner",
+      "duration": 15,
+      "createdDate": "2024-01-05",
+      "isFeatured": true
+    },
+    {
+      "id": "3",
+      "title": "React for Beginners",
+      "description": "Master React.js with hooks, context API, and modern development practices. Build real-world applications.",
+      "instructorId": 2,
+      "price": 39.99,
+      "rating": 4.7,
+      "students": 1100,
+      "thumbnail": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=250&fit=crop",
+      "category": "Web Development",
+      "level": "beginner",
+      "duration": 20,
+      "createdDate": "2024-01-15",
+      "isFeatured": false
+    },
+    {
+      "id": "4",
+      "title": "Python Data Science",
+      "description": "Learn data analysis, visualization, and machine learning with Python. Work with real datasets and build ML models.",
+      "instructorId": 2,
+      "price": 59.99,
+      "rating": 4.9,
+      "students": 750,
+      "thumbnail": "https://images.unsplash.com/photo-1526379879527-8559ecfcaec0?w=400&h=250&fit=crop",
+      "category": "Data Science",
+      "level": "intermediate",
+      "duration": 35,
+      "createdDate": "2024-01-20",
+      "isFeatured": true
+    },
+    {
+      "id": "5",
+      "title": "UI/UX Design Principles",
+      "description": "Master user interface and user experience design fundamentals. Create beautiful and functional designs.",
+      "instructorId": 3,
+      "price": 44.99,
+      "rating": 4.5,
+      "students": 620,
+      "thumbnail": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=250&fit=crop",
+      "category": "Design",
+      "level": "beginner",
+      "duration": 18,
+      "createdDate": "2024-01-25",
+      "isFeatured": false
+    },
+    {
+      "id": "6",
+      "title": "Advanced Node.js",
+      "description": "Build scalable backend applications with Node.js and Express. Learn authentication, databases, and deployment.",
+      "instructorId": 1,
+      "price": 54.99,
+      "rating": 4.8,
+      "students": 480,
+      "thumbnail": "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=400&h=250&fit=crop",
+      "category": "Web Development",
+      "level": "advanced",
+      "duration": 25,
+      "createdDate": "2024-02-01",
+      "isFeatured": false
+    },
+    {
+      "id": "7",
+      "title": "Digital Marketing Fundamentals",
+      "description": "Learn SEO, social media marketing, and digital advertising strategies. Grow your business online.",
+      "instructorId": 3,
+      "price": 34.99,
+      "rating": 4.4,
+      "students": 920,
+      "thumbnail": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop",
+      "category": "Marketing",
+      "level": "beginner",
+      "duration": 16,
+      "createdDate": "2024-02-05",
+      "isFeatured": false
+    },
+    {
+      "id": "8",
+      "title": "Business Analytics",
+      "description": "Make data-driven business decisions with analytics tools and techniques. Learn SQL, Excel, and data visualization.",
+      "instructorId": 2,
+      "price": 49.99,
+      "rating": 4.7,
+      "students": 380,
+      "thumbnail": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop",
+      "category": "Business",
+      "level": "intermediate",
+      "duration": 22,
+      "createdDate": "2024-02-10",
+      "isFeatured": true
+    },
+    {
+      "id": "6126",
+      "title": "Web Development",
+      "description": "new cossssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+      "category": "Web Development",
+      "level": "beginner",
+      "price": 54,
+      "duration": 13,
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9UGr7b9JskCcEOJnLWmD1ZxMcCjqCsjAt_g&s",
+      "lessons": [
+        {
+          "title": "gffg",
+          "description": "dfgfd",
+          "type": "video",
+          "duration": 6,
+          "videoUrl": "https://www.youtube.com/watch?v=2zz8jhRWXAc&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=8",
+          "content": "",
+          "order": 1,
+          "isFree": true
+        }
+      ],
+      "isFeatured": true,
+      "requirements": [
+        "none"
+      ],
+      "learningObjectives": [
+        "build"
+      ],
+      "instructorId": 428,
+      "students": 0,
+      "rating": 0,
+      "createdDate": "2025-11-10"
+    },
+    {
+      "id": "10405",
+      "title": "web development",
+      "description": "this is the course that i created by me and i want to develop it ",
+      "category": "Web Development",
+      "level": "intermediate",
+      "price": 50,
+      "duration": 5,
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiEjBilP-PBEbL7NAsVh5jU2PEYPgaGhh8-g&s",
+      "lessons": [
+        {
+          "title": "my lesson",
+          "description": "the customed lesson",
+          "type": "article",
+          "duration": 2,
+          "videoUrl": "",
+          "content": "dsfdsgdsgdsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "order": 1,
+          "isFree": true
+        }
+      ],
+      "isFeatured": true,
+      "requirements": [
+        "none"
+      ],
+      "learningObjectives": [
+        "everything"
+      ],
+      "instructorId": 428,
+      "students": 0,
+      "rating": 0,
+      "createdDate": "2025-11-12"
+    },
+    {
+      "id": "6848",
+      "title": "business",
+      "description": "this is a test for creating new course. just want to see it's working or not",
+      "category": "Business",
+      "level": "beginner",
+      "price": 55,
+      "duration": 2,
+      "thumbnail": "https://strategylab.ca/wp-content/uploads/2016/01/Stock-Photos-are-the-worst.jpg",
+      "lessons": [
+        {
+          "title": "new lessons",
+          "description": "this is a new lessons",
+          "type": "video",
+          "duration": 2,
+          "videoUrl": "",
+          "content": "",
+          "order": 1,
+          "isFree": true
+        }
+      ],
+      "isFeatured": true,
+      "requirements": [
+        "demo"
+      ],
+      "learningObjectives": [
+        "many things"
+      ],
+      "instructorId": 428,
+      "students": 0,
+      "rating": 0,
+      "createdDate": "2025-11-12"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "1",
+      "courseId": 1,
+      "title": "Introduction to Angular",
+      "description": "Get started with Angular framework and understand its core concepts.",
+      "videoUrl": "https://example.com/videos/angular-intro.mp4",
+      "duration": 25,
+      "order": 1,
+      "isCompleted": false
+    },
+    {
+      "id": "2",
+      "courseId": 1,
+      "title": "Components and Templates",
+      "description": "Learn about Angular components and template syntax.",
+      "videoUrl": "https://example.com/videos/angular-components.mp4",
+      "duration": 35,
+      "order": 2,
+      "isCompleted": false
+    },
+    {
+      "id": "3",
+      "courseId": 1,
+      "title": "Services and Dependency Injection",
+      "description": "Understand services and dependency injection in Angular.",
+      "videoUrl": "https://example.com/videos/angular-services.mp4",
+      "duration": 30,
+      "order": 3,
+      "isCompleted": false
+    },
+    {
+      "id": "4",
+      "courseId": 2,
+      "title": "JavaScript Basics",
+      "description": "Learn the fundamentals of JavaScript programming.",
+      "videoUrl": "https://example.com/videos/js-basics.mp4",
+      "duration": 20,
+      "order": 1,
+      "isCompleted": false
+    }
+  ],
+  "enrollments": [
+    {
+      "id": "1",
+      "studentId": 4,
+      "courseId": 1,
+      "enrolledDate": "2024-01-20",
+      "progress": 25,
+      "completedLessons": [
+        1
+      ]
+    },
+    {
+      "id": "2",
+      "studentId": 4,
+      "courseId": 2,
+      "enrolledDate": "2024-01-25",
+      "progress": 50,
+      "completedLessons": [
+        4
+      ]
+    },
+    {
+      "id": "16a3",
+      "studentId": 619,
+      "courseId": 1,
+      "enrolledDate": "2025-11-13",
+      "progress": 0,
+      "completedLessons": []
+    },
+    {
+      "id": "7ce8",
+      "studentId": 619,
+      "courseId": 1,
+      "enrolledDate": "2025-11-13",
+      "progress": 0,
+      "completedLessons": []
+    },
+    {
+      "id": "3295",
+      "studentId": 619,
+      "courseId": 3,
+      "enrolledDate": "2025-11-13",
+      "progress": 0,
+      "completedLessons": []
+    },
+    {
+      "id": "986e",
+      "studentId": 161,
+      "courseId": 1,
+      "enrolledDate": "2025-11-16",
+      "progress": 0,
+      "completedLessons": []
+    }
+   
+  ]
+}

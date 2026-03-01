@@ -1,0 +1,229 @@
+<div class="courses-page">
+  <!-- Page Header -->
+  <section class="page-header bg-theme-primary text-white py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <h1 class="display-5 fw-bold mb-3">Explore Our Courses</h1>
+          <p class="lead mb-0">Discover thousands of courses taught by industry experts</p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+          <div class="header-stats">
+            <div class="d-inline-block text-center mx-3">
+              <h3 class="fw-bold text-accent mb-1">{{totalCourses}}</h3>
+              <small>Courses</small>
+            </div>
+            <div class="d-inline-block text-center mx-3">
+              <h3 class="fw-bold text-accent mb-1">{{totalInstructors}}</h3>
+              <small>Instructors</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row">
+        <!-- Sidebar Filters -->
+        <div class="col-lg-3 mb-4">
+          <div class="filter-sidebar">
+            <!-- Search Box -->
+            <div class="filter-section mb-4">
+              <h6 class="filter-title mb-3">Search Courses</h6>
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search..." 
+                       [(ngModel)]="searchTerm" (input)="filterCourses()">
+                <button class="btn btn-outline-secondary" type="button">
+                  <i class="bi bi-search"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="filter-section mb-4">
+              <h6 class="filter-title mb-3">Categories</h6>
+              <div class="filter-options">
+                <div class="form-check mb-2" *ngFor="let category of categories">
+                  <input class="form-check-input" type="checkbox" [id]="'cat-'+category" 
+                         [checked]="selectedCategories.includes(category)" 
+                         (change)="toggleCategory(category)">
+                  <label class="form-check-label" [for]="'cat-'+category">
+                    {{category}} <span class="text-muted">({{getCategoryCount(category)}})</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Level Filter -->
+            <div class="filter-section mb-4">
+              <h6 class="filter-title mb-3">Difficulty Level</h6>
+              <div class="filter-options">
+                <div class="form-check mb-2" *ngFor="let level of levels">
+                  <input class="form-check-input" type="checkbox" [id]="'level-'+level" 
+                         [checked]="selectedLevels.includes(level)" 
+                         (change)="toggleLevel(level)">
+                  <label class="form-check-label" [for]="'level-'+level">
+                    <span [class]="'badge bg-'+level">{{level | titlecase}}</span>
+                    <span class="text-muted">({{getLevelCount(level)}})</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Price Filter -->
+            <div class="filter-section mb-4">
+              <h6 class="filter-title mb-3">Price Range</h6>
+              <div class="filter-options">
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="priceRange" id="price-all" 
+                         value="all" [(ngModel)]="selectedPriceRange" (change)="filterCourses()">
+                  <label class="form-check-label" for="price-all">All Prices</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="priceRange" id="price-free" 
+                         value="free" [(ngModel)]="selectedPriceRange" (change)="filterCourses()">
+                  <label class="form-check-label" for="price-free">Free</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="priceRange" id="price-paid" 
+                         value="paid" [(ngModel)]="selectedPriceRange" (change)="filterCourses()">
+                  <label class="form-check-label" for="price-paid">Paid</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Rating Filter -->
+            <div class="filter-section mb-4">
+              <h6 class="filter-title mb-3">Minimum Rating</h6>
+              <select class="form-select" [(ngModel)]="minRating" (change)="filterCourses()">
+                <option value="0">Any Rating</option>
+                <option value="4">4+ Stars</option>
+                <option value="4.5">4.5+ Stars</option>
+              </select>
+            </div>
+
+            <!-- Clear Filters -->
+            <button class="btn btn-outline-secondary w-100" (click)="clearFilters()">
+              <i class="bi bi-arrow-clockwise me-2"></i>Clear All Filters
+            </button>
+          </div>
+        </div>
+
+        <!-- Course Grid -->
+        <div class="col-lg-9">
+          <!-- Toolbar -->
+          <div class="toolbar d-flex justify-content-between align-items-center mb-4">
+            <div class="results-count">
+              <p class="mb-0 text-muted">
+                Showing <strong>{{filteredCourses.length}}</strong> of <strong>{{totalCourses}}</strong> courses
+              </p>
+            </div>
+            <div class="sort-options">
+              <select class="form-select" [(ngModel)]="sortBy" (change)="sortCourses()">
+                <option value="popular">Most Popular</option>
+                <option value="rating">Highest Rated</option>
+                <option value="newest">Newest</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Course Grid -->
+          <div class="row g-4" *ngIf="filteredCourses.length > 0; else noCourses">
+            <div class="col-xl-4 col-lg-6" *ngFor="let course of filteredCourses">
+              <div class="course-card card border-0 shadow-sm h-100">
+                <div class="course-image position-relative">
+                  <img [src]="course.thumbnail" [alt]="course.title" class="card-img-top">
+                  <div class="course-badges position-absolute top-0 start-0 m-3">
+                    <span class="badge bg-accent me-1" *ngIf="course.isFeatured">
+                      <i class="bi bi-star-fill me-1"></i>Featured
+                    </span>
+                    <span class="badge" [ngClass]="'bg-' + course.level">
+                      {{course.level | titlecase}}
+                    </span>
+                  </div>
+                  <div class="course-rating position-absolute top-0 end-0 m-3">
+                    <span class="badge bg-warning text-dark">
+                      <i class="bi bi-star-fill me-1"></i>{{course.rating}}
+                    </span>
+                  </div>
+                </div>
+                
+                <div class="card-body d-flex flex-column">
+                  <div class="course-category mb-2">
+                    <span class="badge bg-secondary">{{course.category}}</span>
+                  </div>
+                  
+                  <h5 class="card-title fw-bold text-theme-primary">{{course.title}}</h5>
+                  <p class="card-text text-muted flex-grow-1">{{course.description | slice:0:120}}...</p>
+                  
+                  <div class="course-meta d-flex justify-content-between align-items-center mb-3">
+                    <div class="course-duration">
+                      <i class="bi bi-clock me-1 text-muted"></i>
+                      <small class="text-muted">{{course.duration}}h</small>
+                    </div>
+                    <div class="course-students">
+                      <i class="bi bi-people me-1 text-muted"></i>
+                      <small class="text-muted">{{course.students | number}}</small>
+                    </div>
+                  </div>
+                  
+                  <div class="course-instructor d-flex align-items-center mb-3">
+                    <img [src]="course.instructor.avatar" [alt]="course.instructor.name" 
+                         class="instructor-avatar me-2">
+                    <small class="text-muted">By {{course.instructor.name}}</small>
+                  </div>
+                  
+                  <div class="course-footer d-flex justify-content-between align-items-center mt-auto">
+                    <div class="course-price">
+                      <h5 class="text-theme-primary mb-0" *ngIf="course.price > 0; else free">
+                        ${{course.price}}
+                      </h5>
+                      <ng-template #free>
+                        <h5 class="text-success mb-0">Free</h5>
+                      </ng-template>
+                    </div>
+                    <button class="btn btn-primary btn-sm" [routerLink]="['/course', course.id]">
+                      <i class="bi bi-eye me-1"></i>View Course
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- No Courses Found -->
+          <ng-template #noCourses>
+            <div class="text-center py-5">
+              <i class="bi bi-search display-1 text-muted"></i>
+              <h4 class="text-muted mt-3">No courses found</h4>
+              <p class="text-muted">Try adjusting your search criteria or clear filters</p>
+              <button class="btn btn-primary" (click)="clearFilters()">
+                <i class="bi bi-arrow-clockwise me-2"></i>Clear Filters
+              </button>
+            </div>
+          </ng-template>
+
+          <!-- Loading State -->
+          <div *ngIf="isLoading" class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading courses...</span>
+            </div>
+            <p class="text-muted mt-3">Loading courses...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+  <div *ngIf="currentUser?.role === 'student'">
+    <app-student-footer></app-student-footer>
+  </div>
+ <div *ngIf="currentUser?.role === 'instructor'">
+  <app-instructor-footer></app-instructor-footer>
+ </div>

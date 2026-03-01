@@ -1,0 +1,35 @@
+.student-footer {
+  background:linear-gradient(135deg, #082f68 0%, #071a33 100%);
+
+  .student-icon {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 12px;
+    backdrop-filter: blur(10px);
+  }
+
+  .student-stats {
+    .stat-number {
+      font-size: 1.25rem;
+    }
+  }
+
+  .footer-links {
+    a.hover-light:hover {
+      color: rgb(255, 255, 255) !important;
+      padding-left: 5px;
+    }
+  }
+
+  .btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+
+// Common hover effects
+.hover-primary:hover { color: var(--bs-primary) !important; }
+.hover-warning:hover { color: var(--bs-warning) !important; }
+.hover-light:hover { color: white !important; }
+
+

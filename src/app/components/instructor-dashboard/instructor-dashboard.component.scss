@@ -1,0 +1,86 @@
+.instructor-dashboard {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+
+  .dashboard-header {
+    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+  }
+
+  .stat-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+    }
+
+    .stat-icon {
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .course-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1) !important;
+    }
+  }
+
+  .section-title {
+    position: relative;
+    padding-bottom: 0.5rem;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+      border-radius: 2px;
+    }
+  }
+
+  .btn-group .btn {
+    border-radius: 0.375rem;
+  }
+
+  .table th {
+    border-top: none;
+    font-weight: 600;
+    color: #6c757d;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .instructor-dashboard {
+    .stat-card .stat-number {
+      font-size: 1.5rem;
+    }
+    
+    .btn-group {
+      flex-direction: column;
+      
+      .btn {
+        border-radius: 0.375rem;
+        margin-bottom: 0.25rem;
+      }
+    }
+  }
+}

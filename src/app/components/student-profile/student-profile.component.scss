@@ -1,0 +1,214 @@
+.profile-page {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+
+  .profile-header {
+    background: linear-gradient(135deg, #667eea 0%, #1a128d 100%);
+  }
+
+   .avatar-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+
+    img {
+      border: 3px solid #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    &:hover img {
+      transform: scale(1.05);
+    }
+    
+    .avatar-upload-btn {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      width: 36px;
+      height: 36px;
+      background: #667eea;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: #5a6fd8;
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .profile-stats {
+    .stat-number {
+      font-size: 1.5rem;
+    }
+    
+    .stat-label {
+      font-size: 0.875rem;
+    }
+  }
+
+  .list-group-item {
+    border: none;
+    padding: 1rem 1.25rem;
+    color: #6c757d;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+    }
+    
+    &:hover:not(.active) {
+      background-color: #f8f9fa;
+      color: #667eea;
+    }
+  }
+
+  .course-progress-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+    }
+  }
+
+  .progress-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: conic-gradient(#28a745 calc(var(--progress) * 1%), #e9ecef 0%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background: white;
+      border-radius: 50%;
+    }
+    
+    .progress-value {
+      position: relative;
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: #28a745;
+    }
+  }
+
+  .achievement-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+    }
+    
+    &.earned {
+      border: 2px solid #ffc107;
+    }
+    
+    .achievement-icon {
+      width: 60px;
+      height: 60px;
+      background: #e9ecef;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      font-size: 1.5rem;
+      color: #6c757d;
+      transition: all 0.3s ease;
+      
+      &.earned {
+        background: linear-gradient(135deg, #ffc107 0%, #ff8c00 100%);
+        color: white;
+        transform: scale(1.1);
+      }
+    }
+    
+    .achievement-name {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .form-control, .form-select {
+    border: 1px solid #e9ecef;
+    transition: all 0.2s ease;
+    
+    &:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    }
+  }
+
+  .card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1) !important;
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .profile-page {
+    .avatar-container {
+      width: 100px;
+      height: 100px;
+    }
+    
+    .progress-circle {
+      width: 60px;
+      height: 60px;
+      
+      &::before {
+        width: 45px;
+        height: 45px;
+      }
+      
+      .progress-value {
+        font-size: 0.75rem;
+      }
+    }
+  }
+}
+  .custom-toast {
+    animation: fadeIn 0.4s ease-in-out;
+  }
+
+.toast-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #198754;
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 0.25rem;
+  animation: fadeInOut 2.5s forwards;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-20px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-20px); }
+}
+

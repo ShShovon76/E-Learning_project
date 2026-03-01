@@ -1,0 +1,11 @@
+.auth-footer {
+  .auth-links {
+    a.hover-primary:hover {
+      color: var(--bs-primary) !important;
+    }
+  }
+}
+// Common hover effects
+.hover-primary:hover { color: var(--bs-primary) !important; }
+.hover-warning:hover { color: var(--bs-warning) !important; }
+.hover-light:hover { color: white !important; }

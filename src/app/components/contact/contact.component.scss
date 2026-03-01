@@ -1,0 +1,237 @@
+/* =============================
+   Contact Page Styles - Enhanced
+   ============================= */
+
+.contact-page {
+
+  /* ================= Hero Section ================= */
+  .contact-hero {
+    background: linear-gradient(135deg, #0061ff, #60efff);
+    color: white;
+    position: relative;
+    overflow: hidden;
+
+    h1, .lead {
+      color: white;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards;
+      animation-delay: 0.3s;
+    }
+
+    .contact-info {
+      margin-top: 2rem;
+
+      .d-flex {
+        align-items: center;
+        margin-bottom: 1rem;
+        opacity: 0;
+        transform: translateX(-30px);
+        animation: fadeInLeft 0.8s forwards;
+        animation-delay: 0.5s;
+
+        .contact-icon {
+          width: 50px;
+          height: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(12, 1, 1, 0.2);
+          border-radius: 50%;
+          transition: all 0.3s ease;
+
+          i {
+            font-size: 1.4rem;
+            color: rgb(199, 11, 11);
+          }
+
+          &:hover {
+            background: rgba(206, 31, 31, 0.4);
+            transform: scale(1.2);
+          }
+        }
+
+        h6 {
+          margin-bottom: 0;
+        }
+
+        p {
+          margin-bottom: 0;
+          opacity: 0.85;
+        }
+      }
+    }
+  }
+
+  /* ================= Contact Form & Sidebar ================= */
+  .contact-main {
+
+    .card {
+      border-radius: 1rem;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .card-header {
+        border-radius: 1rem 1rem 0 0;
+        background: #5091d1;
+        font-weight: 600;
+      }
+
+      .card-body {
+        padding: 2rem;
+      }
+    }
+
+    .contact-sidebar {
+      .card {
+        .support-categories a {
+          transition: all 0.3s ease;
+          border-radius: 0.5rem;
+
+          &:hover {
+            background: rgba(0, 97, 255, 0.1);
+            color: #0061ff;
+          }
+
+          i {
+            font-size: 1.2rem;
+          }
+        }
+
+        .faq-links a {
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: #0061ff;
+          }
+        }
+      }
+    }
+
+    /* Animate form fields on focus */
+    input:focus, textarea:focus {
+      border-color: #0061ff;
+      box-shadow: 0 0 8px rgba(0, 97, 255, 0.2);
+    }
+  }
+
+  /* ================= Map Section ================= */
+  .location-section {
+
+    .map-placeholder {
+      height: 400px;
+      background: linear-gradient(135deg, #0061ff, #03122b);
+      color: white;
+      border-radius: 1rem;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+
+      i {
+        font-size: 4rem;
+        opacity: 0.8;
+      }
+
+      h5 {
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+      }
+
+      p {
+        opacity: 0.9;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(255, 255, 255, 0.05);
+        pointer-events: none;
+      }
+
+      animation: fadeInUp 1s forwards;
+    }
+
+    .location-info {
+      h5 {
+        font-weight: 600;
+        margin-bottom: 1rem;
+        opacity: 0;
+        transform: translateX(20px);
+        animation: fadeInRight 1s forwards;
+      }
+
+      .contact-details {
+        .d-flex {
+          align-items: start;
+          margin-bottom: 1rem;
+          opacity: 0;
+          transform: translateX(20px);
+          animation: fadeInRight 0.8s forwards;
+
+          i {
+            font-size: 1.3rem;
+            color: #0061ff;
+            margin-top: 0.2rem;
+          }
+
+          h6 {
+            margin-bottom: 0.2rem;
+          }
+
+          p {
+            margin-bottom: 0;
+            opacity: 0.85;
+          }
+        }
+      }
+    }
+  }
+
+  /* ================= Buttons ================= */
+  button.btn-primary {
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: #004ed6;
+      transform: scale(1.02);
+    }
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  }
+}
+
+/* ================= Animations ================= */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+  0% { opacity: 0; transform: translateX(-30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  0% { opacity: 0; transform: translateX(30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* ================= Responsive ================= */
+@media (max-width: 992px) {
+  .contact-hero .contact-info {
+    margin-top: 1.5rem;
+  }
+}

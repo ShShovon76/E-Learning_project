@@ -1,0 +1,88 @@
+.about-page {
+  .about-hero {
+    background: linear-gradient(135deg, #3564e6 0%, #4b51a2 100%);
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    
+    .hero-stats {
+      .stat-number {
+        font-size: 2.5rem;
+      }
+    }
+    
+    .hero-visual {
+      img {
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      }
+    }
+  }
+
+  .mission-card, .vision-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+    }
+    
+    .mission-icon, .vision-icon {
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .feature-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+    }
+    
+    .feature-icon {
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .team-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+    }
+    
+    .social-links {
+      a {
+        transition: color 0.3s ease;
+        
+        &:hover {
+          color: var(--bs-primary) !important;
+        }
+      }
+    }
+  }
+
+  .cta-section {
+    background: linear-gradient(135deg, #3564e6 0%, #764ba2 100%);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .about-page {
+    .about-hero {
+      .hero-stats .stat-number {
+        font-size: 2rem;
+      }
+    }
+  }
+}

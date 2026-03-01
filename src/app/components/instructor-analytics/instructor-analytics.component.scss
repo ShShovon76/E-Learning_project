@@ -1,0 +1,43 @@
+.analytics-container {
+  padding: 2rem;
+  background: #f8f9fa;
+  min-height: 100vh;
+  animation: fadeIn 0.4s ease-in-out;
+  h3 {
+    font-weight: 600;
+  }
+
+  canvas {
+    max-height: 400px;
+  }
+
+  .card {
+    border-radius: 1rem;
+  }
+
+  .list-group-item {
+    border: none;
+    background: transparent;
+    padding: 0.75rem 0;
+    font-size: 1rem;
+
+    strong {
+      color: #0061ff;
+    }
+  }
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+  border-radius: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+}

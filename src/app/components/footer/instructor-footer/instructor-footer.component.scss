@@ -1,0 +1,25 @@
+.instructor-footer {
+  background: linear-gradient(135deg, #082f68 0%, #071a33 100%);
+
+  .instructor-icon {
+    background: rgba(255, 193, 7, 0.2);
+    border-radius: 12px;
+    padding: 12px;
+    backdrop-filter: blur(10px);
+  }
+
+  .footer-links {
+    a.hover-warning:hover {
+      color: var(--bs-warning) !important;
+      padding-left: 5px;
+    }
+  }
+
+  .btn-outline-warning:hover {
+    background: rgba(255, 193, 7, 0.1);
+  }
+}
+// Common hover effects
+.hover-primary:hover { color: var(--bs-primary) !important; }
+.hover-warning:hover { color: var(--bs-warning) !important; }
+.hover-light:hover { color: white !important; }

@@ -1,0 +1,264 @@
+<div class="course-details-page" *ngIf="course; else loading">
+  <!-- Course Header -->
+  <section class="course-header bg-theme-primary text-white py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a routerLink="/courses" class="text-white-50">Courses</a></li>
+              <li class="breadcrumb-item"><a [routerLink]="['/courses']" [queryParams]="{category: course.category}"
+                  class="text-white-50">{{course.category}}</a></li>
+              <li class="breadcrumb-item active text-white" aria-current="page">{{course.title}}</li>
+            </ol>
+          </nav>
+
+          <div class="course-badges mb-3">
+            <span class="badge bg-accent me-2" *ngIf="course.isFeatured">
+              <i class="bi bi-star-fill me-1"></i>Featured
+            </span>
+            <span class="badge me-2" [ngClass]="'bg-' + course.level">
+              {{course.level | titlecase}}
+            </span>
+            <span class="badge bg-secondary">{{course.category}}</span>
+          </div>
+
+          <h1 class="display-5 fw-bold mb-3">{{course.title}}</h1>
+          <p class="lead mb-4">{{course.description}}</p>
+
+          <div class="course-stats d-flex flex-wrap gap-4 mb-4">
+            <div class="stat">
+              <i class="bi bi-star-fill text-warning me-1"></i>
+              <strong>{{course.rating}}</strong> ({{course.students | number}} reviews)
+            </div>
+            <div class="stat">
+              <i class="bi bi-people me-1"></i>
+              <strong>{{course.students | number}}</strong> students
+            </div>
+            <div class="stat">
+              <i class="bi bi-clock me-1"></i>
+              <strong>{{course.duration}}</strong> hours
+            </div>
+            <div class="stat">
+              <i class="bi bi-bar-chart me-1"></i>
+              <strong>{{course.level | titlecase}}</strong> level
+            </div>
+          </div>
+
+          <div class="instructor-preview d-flex align-items-center">
+            <img [src]="course.instructor.avatar" [alt]="course.instructor.name" class="instructor-avatar-lg me-3">
+            <div>
+              <p class="mb-1">Created by <strong>{{course.instructor.name}}</strong></p>
+              <p class="mb-0 text-white-50">{{course.instructor.bio}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="course-card-sidebar">
+            <div class="card border-0 shadow-lg">
+              <img [src]="course.thumbnail" [alt]="course.title" class="card-img-top">
+              <div class="card-body p-4">
+                <div class="course-price text-center mb-3">
+                  <h2 class="text-theme-primary fw-bold" *ngIf="course.price > 0; else free">
+                    ${{course.price}}
+                  </h2>
+                  <ng-template #free>
+                    <h2 class="text-success fw-bold">Free</h2>
+                  </ng-template>
+                  <p class="text-muted mb-0">One-time payment</p>
+                </div>
+
+                <div class="d-grid gap-2">
+                  <button class="btn btn-primary btn-lg" (click)="enrollCourse()">
+                    <i class="bi bi-cart-plus me-2"></i>
+                    {{course.price > 0 ? 'Enroll Now' : 'Start Learning'}}
+                  </button>
+                  <button class="btn btn-outline-secondary">
+                    <i class="bi bi-heart me-2"></i>Add to Wishlist
+                  </button>
+                </div>
+
+                <div class="course-guarantee text-center mt-3">
+                  <p class="small text-muted mb-1">
+                    <i class="bi bi-shield-check text-success me-1"></i>
+                    30-day money-back guarantee
+                  </p>
+                </div>
+
+                <hr class="my-3">
+
+                <div class="course-features">
+                  <h6 class="fw-bold mb-3">This course includes:</h6>
+                  <ul class="list-unstyled">
+                    <li class="mb-2">
+                      <i class="bi bi-play-circle text-theme-primary me-2"></i>
+                      {{lessons.length}} on-demand videos
+                    </li>
+                    <li class="mb-2">
+                      <i class="bi bi-file-text text-theme-primary me-2"></i>
+                      Downloadable resources
+                    </li>
+                    <li class="mb-2">
+                      <i class="bi bi-infinity text-theme-primary me-2"></i>
+                      Full lifetime access
+                    </li>
+                    <li class="mb-2">
+                      <i class="bi bi-phone text-theme-primary me-2"></i>
+                      Access on mobile and TV
+                    </li>
+                    <li class="mb-2">
+                      <i class="bi bi-award text-theme-primary me-2"></i>
+                      Certificate of completion
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Course Content -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row">
+        <!-- Curriculum -->
+        <div class="col-lg-8">
+          <div class="course-curriculum mb-5">
+            <h3 class="fw-bold mb-4">Course Curriculum</h3>
+            <div class="accordion" id="curriculumAccordion">
+              <div class="accordion-item border-0 mb-3" *ngFor="let lesson of lessons; let i = index">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse"
+                    [attr.data-bs-target]="'#lesson' + i">
+                    <div class="d-flex justify-content-between align-items-center w-100 me-3">
+                      <span>
+                        <i class="bi bi-play-circle me-2 text-theme-primary"></i>
+                        {{lesson.title}}
+                      </span>
+                      <span class="text-muted small">{{lesson.duration}} min</span>
+                    </div>
+                  </button>
+                </h2>
+                <div [id]="'lesson' + i" class="accordion-collapse collapse" data-bs-parent="#curriculumAccordion">
+                  <div class="accordion-body">
+                    <p class="text-muted mb-3">{{lesson.description}}</p>
+                    <div class="d-flex gap-2">
+                      <button class="btn btn-primary btn-sm" [routerLink]="['/learn', course.id, 'lesson', lesson.id]">
+                        <i class="bi bi-play-fill me-1"></i>Start Lesson
+                      </button>
+                      <button class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-download me-1"></i>Resources
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Instructor Details -->
+          <div class="instructor-details mb-5">
+            <h3 class="fw-bold mb-4">About the Instructor</h3>
+            <div class="card border-0 shadow-sm">
+              <div class="card-body p-4">
+                <div class="row align-items-center">
+                  <div class="col-md-3 text-center mb-3 mb-md-0">
+                    <img [src]="course.instructor.avatar" [alt]="course.instructor.name"
+                      class="instructor-avatar-xl rounded-circle mb-3">
+                    <h5 class="fw-bold mb-1">{{course.instructor.name}}</h5>
+                    <p class="text-muted mb-0">{{course.instructor.role | titlecase}}</p>
+                  </div>
+                  <div class="col-md-9">
+                    <p class="mb-3">{{course.instructor.bio}}</p>
+                    <div class="instructor-stats d-flex gap-4 mb-3">
+                      <div class="stat text-center">
+                        <h5 class="fw-bold text-theme-primary mb-1">{{instructorCoursesCount}}</h5>
+                        <small class="text-muted">Courses</small>
+                      </div>
+                      <div class="stat text-center">
+                        <h5 class="fw-bold text-theme-primary mb-1">{{totalStudents | number}}</h5>
+                        <small class="text-muted">Students</small>
+                      </div>
+                      <div class="stat text-center">
+                        <h5 class="fw-bold text-theme-primary mb-1">4.8</h5>
+                        <small class="text-muted">Rating</small>
+                      </div>
+                    </div>
+                    <div class="instructor-social">
+                      <button class="btn btn-outline-primary btn-sm me-2">
+                        <i class="bi bi-envelope me-1"></i>Message
+                      </button>
+                      <button class="btn btn-outline-secondary btn-sm me-2">
+                        <i class="bi bi-linkedin me-1"></i>
+                      </button>
+                      <button class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-twitter me-1"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Related Courses -->
+        <div class="col-lg-4">
+          <div class="related-courses">
+            <h4 class="fw-bold mb-4">Related Courses</h4>
+            <div class="row g-3">
+              <div class="col-12" *ngFor="let relatedCourse of relatedCourses">
+                <div class="card related-course-card border-0 shadow-sm" (click)="goToCourse(relatedCourse.id)"
+                  style="cursor: pointer;">
+                  <div class="row g-0">
+                    <div class="col-4">
+                      <img [src]="relatedCourse.thumbnail" [alt]="relatedCourse.title" class="img-fluid h-100"
+                        style="object-fit: cover;">
+                    </div>
+                    <div class="col-8">
+                      <div class="card-body p-3">
+                        <h6 class="card-title fw-bold mb-1">{{relatedCourse.title}}</h6>
+                        <p class="card-text small text-muted mb-2">
+                          {{relatedCourse.instructor.name}}
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span class="text-theme-primary fw-bold small"
+                            *ngIf="relatedCourse.price > 0; else freeRelated">
+                            ${{relatedCourse.price}}
+                          </span>
+                          <ng-template #freeRelated>
+                            <span class="text-success fw-bold small">Free</span>
+                          </ng-template>
+                          <span class="badge bg-warning text-dark small">
+                            <i class="bi bi-star-fill me-1"></i>{{relatedCourse.rating}}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Loading State -->
+<ng-template #loading>
+  <div class="container py-5">
+    <div class="text-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading course...</span>
+      </div>
+      <p class="text-muted mt-3">Loading course details...</p>
+    </div>
+  </div>
+</ng-template>
+<app-student-footer></app-student-footer>
